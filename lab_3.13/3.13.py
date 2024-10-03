@@ -1,16 +1,9 @@
-from statistics import LinearRegression
-
 import numpy as np
 import matplotlib.pyplot as plt
-from PIL.ImageOps import scale
-from pylatex import Document, Section, Subsection, Command, Tabular, NoEscape, Figure, Table, MultiColumn, Math
-from pylatex.utils import italic, bold
+from pylatex import Section, Tabular, NoEscape, Figure, Table, MultiColumn
 from pylatex.package import Package
 from pylatex import Document
-from io import BytesIO
 import scipy.stats as stats
-
-
 
 class LabReport:
     def __init__(self, filename, font_size= 26):

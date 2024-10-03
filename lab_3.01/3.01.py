@@ -2,13 +2,9 @@ import math
 
 import numpy as np
 import matplotlib.pyplot as plt
-from PIL.ImageOps import scale
-from pylatex import Document, Section, Subsection, Command, Tabular, NoEscape, Figure, Table, MultiColumn, Math
-from pylatex.utils import italic, bold
+from pylatex import Section,NoEscape, Figure
 from pylatex.package import Package
 from pylatex import Document
-from io import BytesIO
-import scipy.stats as stats
 from math import log10, floor
 
 
@@ -108,6 +104,7 @@ class LabReport:
         """
         with self.doc.create(Figure(position="h!")) as fig:
             fig.add_image(image_filename, width='350px')
+
     def add_figure_witn_page(self, image_filename):
         """
         Функция для добавления изображения в центр и созданием новой страницы.
@@ -137,10 +134,8 @@ class LabReport:
         """
         Рисует два графика зависимости потенциала от координаты
         для двух исследованных конфигураций поля.
-
-        Args:
-          mas_1: Список координат и потенциалов для плоского конденсатора.
-          mas_2: Список координат и потенциалов для кольца.
+          :param mas_1: Список координат и потенциалов для плоского конденсатора.
+          :param mas_2: Список координат и потенциалов для кольца.
           :param file_name: Название графика
         """
         x1, y1 = zip(*mas_1)
@@ -175,32 +170,12 @@ class LabReport:
         """
         return self.doc
 
-
-class MeasurementTable:
-    def __init__(self, doc, angles, currents_1, currents_2, phi):
-        """
-        Инициализация данных для расчетов и создания таблицы.
-        :param doc: Данный документ
-        :param angles: Массив углов α_i в градусах
-        :param currents_1: Массив значений тока I_1
-        :param currents_2: Массив значений тока I_2
-        :param phi: Угол φ в градусах
-        """
-        self.doc = doc
-        self.angles = angles
-        self.currents_1 = currents_1
-        self.currents_2 = currents_2
-        self.phi = phi
-        self.average_current = self.give_average_current() # Среднее значение тока <I>
-        self.sin_ratios = self.calculate_sin_ratios()  # Вычисление sin(α_i)/sin(φ - α_i)
-        self.magnetic_fields = self.calculate_magnetic_fields()  # Расчет Bc
-
 class MeasurementRounding:
     def __init__(self, value, error):
         """
         Инициализация класса с измеренным значением и абсолютной погрешностью.
-        value - измеренное значение
-        error - абсолютная погрешность
+        :param value - измеренное значение
+        :param error - абсолютная погрешность
         """
         self.value = value
         self.error = error
@@ -246,9 +221,10 @@ class MeasurementRounding:
     def get_rounded_measurement(self):
         """
         Возвращает округленное измеренное значение и погрешность.
-        """
+         """
         error_rounded = self.round_error()
-        return error_rounded
+        value_rounded = self.round_value(error_rounded)
+        return value_rounded, error_rounded
 
 
 if __name__ == "__main__":
@@ -287,10 +263,10 @@ if __name__ == "__main__":
 
     E_center_error = MeasurementRounding(E_center,
                                          report.calc_electric_field_error
-                                         (4,2,0.160-0.100)).get_rounded_measurement()
+                                         (4,2,0.160-0.100)).get_rounded_measurement()[0]
     E_loc_error = MeasurementRounding(E_loc,
                                          report.calc_electric_field_error
-                                         (12.01, 11.25, 0.286-0.265)).get_rounded_measurement()
+                                         (12.01, 11.25, 0.286-0.265)).get_rounded_measurement()[0]
     report.add_text_with_math("Расчет погрешностей измерений:",r""
                                                                r"\Delta E = "
                                                                r"\sqrt{\left(\frac{2\cdot \Delta \phi_i}{3 l}\right)^2+"
@@ -311,7 +287,7 @@ if __name__ == "__main__":
     report.add_custom_latex(r"Зеленые линии – эквипотенциальные линии; "
                             r"Синие линии – силовые линии.")
     report.create_summary()
-    report.add_custom_latex(r"В результате выполнения лабораторной работы"
+    report.add_custom_latex(r"В результате выполнения лабораторной работы "
                             r"было смоделировано электрическое поле с помощью "
                             r"эквипотенциальных поверхностей. Стоит отметить, что верхняя "
                             r"часть смоделированного поля в последнем рисунке искривлена сильнее, чем "
