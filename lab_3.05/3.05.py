@@ -361,7 +361,7 @@ if __name__ == "__main__":
     doc_handler.append_content(r'\begin{center}')
     doc_handler.append_content(r'\vspace*{\fill}')  # Add vertical space
     doc_handler.append_content(
-        r'{\LARGE\textbf{Лабораторная работа № 3.03: \\ Определение удельного заряда электрона}}\\[1cm]')
+        r'{\LARGE\textbf{Лабораторная работа № 3.05: \\ Температурная зависимость электрического сопротивления металла и полупроводника}}\\[1cm]')
     doc_handler.append_content(r'{\Large Исхаков Камиль Фархатович}\\[1cm]')
     doc_handler.append_content(r'{\Large \today}')
     doc_handler.append_content(r'\vspace*{\fill}')  # Add vertical space
