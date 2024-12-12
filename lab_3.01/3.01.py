@@ -141,7 +141,7 @@ class LabReport:
         x1, y1 = zip(*mas_1)
         x2, y2 = zip(*mas_2)
 
-        plt.plot(x1, y1, label="Плоский конденсатор")
+        plt.plot(x1, y1, label="Плоский конденсатор",)
         plt.plot(x2, y2, label="Кольцо")
 
         plt.xlabel("Координата X (см)")
@@ -279,7 +279,7 @@ if __name__ == "__main__":
 
     report.add_custom_latex(r"$\sigma'_{-} = - \epsilon_0 \frac{\Delta \phi}{\Delta l_n} $= "
                             r"" + str(report.calc_sigma(E_minus)) + " В/м")
-    arrow = [(2.4, 2), (5.9, 4), (9.9, 6),(10.5, 6.9),(15, 6.9), (16.5, 8), (22.4, 10), (27.1, 12)]
+    arrow = [(2.4, 2), (5.9, 4), (9.9, 6),(10.5,  6.9),(15, 6.9), (16.5, 8), (22.4, 10), (27.1, 12)]
     ring = [(2.1, 2), (5.7, 4), (9.2, 6),(10.0, 7.5),(20, 7.5), (22, 8), (24.2, 10), (28.1, 12)]
 
     report.add_figure_witn_page(report.plot_potential_graphs(arrow,ring))
